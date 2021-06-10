@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-    <p>This is second page!!</p>
+    <ul>
+        {% for lead in leads %}
+        <li>{{ lead }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
