@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    <a href="/leads">Go back to Leads</a>
+    <a href="{% url 'leads:lead-list' %}">Go back to Leads</a>
     <h1>This is the details of {{ lead.first_name }}</h1>
     <p>Age: {{ lead.age }}</p>
     <p>Agent for {{lead.first_name}}: {{lead.agent}}</p>
     <hr>
-    <a href="/leads/{{ lead.id }}/update">Update</a>
-    <a href="/leads/{{ lead.id }}/delete">Delete</a>
+    <a href="{% url 'leads:lead-update' lead.id %}">Update</a>
+    <a href="{% url 'leads:lead-delete' lead.id %}">Delete</a>
 </body>
 </html>
