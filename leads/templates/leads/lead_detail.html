@@ -9,5 +9,8 @@
     <h1>This is the details of {{ lead.first_name }}</h1>
     <p>Age: {{ lead.age }}</p>
     <p>Agent for {{lead.first_name}}: {{lead.agent}}</p>
+    <hr>
+    <a href="/leads/{{ lead.id }}/update">Update</a>
+    <a href="/leads/{{ lead.id }}/delete">Delete</a>
 </body>
 </html>
