@@ -4,6 +4,10 @@ from .forms import LeadForm, LeadModelForm
 from django.http import HttpResponse
 
 
+def landing_page(request):
+    return render(request, 'index.html')
+
+
 def lead_list(request):
     leads = Lead.objects.all()
     context = {
