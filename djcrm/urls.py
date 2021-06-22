@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from leads.views import HomePageView
 from leads.views import landing_page
 
@@ -24,3 +26,6 @@ urlpatterns = [
     path('', HomePageView.as_view(), name='landing-page'),
     path('leads/', include('leads.urls', namespace='leads')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
