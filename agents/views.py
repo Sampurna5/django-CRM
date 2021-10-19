@@ -27,7 +27,7 @@ class AgentCreateView(OrganizerAndLoginRequiredMixin, generic.CreateView):
         user = form.save(commit=False)
         user.is_agent = True
         user.is_organizer = False
-        user.set_password(f"{random.randint(0, 100)}")
+        user.set_password(f"{random.randint(0, 100000)}")
         user.save()
         Agent.objects.create(
             user=user,
