@@ -3,11 +3,12 @@
 {% block content %}
 
 <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-  <hr>
-  <a href="{% url 'reset-password' %}">Forgot Password?</a>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+    <hr>
+    <a href="{% url 'reset-password' %}">Forgot Password?</a>
 </form>
+
 
 {% endblock content %}
