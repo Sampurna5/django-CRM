@@ -19,20 +19,38 @@ def landing_page(request):
 class LeadListView(LoginRequiredMixin, generic.ListView):
     template_name = 'leads/lead_list.html'
     # queryset = Lead.objects.all()   # by default django will create a context with name object_list, so we will loop
-                                    # through object_list instead of our defined context name
+    # through object_list instead of our defined context name
     context_object_name = 'leads'   # to use our preferred context name
 
     def get_queryset(self):
         user = self.request.user
         # initial queryset of leads for the entire organization
         if user.is_organizer:
-            queryset = Lead.objects.filter(organization=user.userprofile)
+            queryset = Lead.objects.filter(
+                organization=user.userprofile,
+                agent__isnull=False
+            )
         else:
-            queryset = Lead.objects.filter(organization=user.agent.organization)
+            queryset = Lead.objects.filter(
+                organization=user.agent.organization,
+                agent__isnull=False
+            )
             # filter for the logged in agent
             queryset = queryset.filter(agent__user=user)
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(LeadListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        if user.is_organizer:
+            queryset = Lead.objects.filter(
+                organization=user.userprofile,
+                agent__isnull=True)
+            context.update({
+                "unassigned_leads": queryset
+            })
+        return context
 
 
 def lead_list(request):
@@ -58,6 +76,7 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
             queryset = queryset.filter(agent__user=user)
 
         return queryset
+
 
 def lead_detail(request, pk):
     lead = Lead.objects.get(id=pk)
